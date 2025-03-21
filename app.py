@@ -22,10 +22,10 @@ app.config["JWT_SECRET_KEY"] = "super-secret-key"  # Change in production
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=15)  # Short-lived access token
 app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(days=30)  # Long-lived refresh token
 app.config["DEBUG"] = True
-CORS(app, resources={r"/*": {"origins": "https://todo-frontend-asz1.onrender.com"}}, supports_credentials=True)
+CORS(app, resources={r"/*": {"origins": "https://todo-frontend-7obx.onrender.com"}}, supports_credentials=True)
 @app.after_request
 def add_cors_headers(response):
-    response.headers["Access-Control-Allow-Origin"] = "https://todo-frontend-asz1.onrender.com"
+    response.headers["Access-Control-Allow-Origin"] = "https://todo-frontend-7obx.onrender.com"
     response.headers["Access-Control-Allow-Headers"] = "Content-Type,Authorization"
     response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
     response.headers["Access-Control-Allow-Credentials"] = "true" 
@@ -39,7 +39,7 @@ jwt = JWTManager(app)
 def update_task(task_id):
     if request.method == "OPTIONS":  # ✅ Handle CORS preflight request
         response = jsonify({"message": "CORS preflight successful"})
-        response.headers.add("Access-Control-Allow-Origin", "https://todo-frontend-asz1.onrender.com")
+        response.headers.add("Access-Control-Allow-Origin", "https://todo-frontend-7obx.onrender.com")
         response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
         response.headers.add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
         return response, 200
@@ -57,7 +57,7 @@ def update_task(task_id):
     conn.close()
 
     response = jsonify({"message": "Task updated successfully"})
-    response.headers.add("Access-Control-Allow-Origin", "https://todo-frontend-asz1.onrender.com")
+    response.headers.add("Access-Control-Allow-Origin", "https://todo-frontend-7obx.onrender.com")
     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
     response.headers.add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
     return response, 200
@@ -175,7 +175,7 @@ def refresh_token():
     user_id = get_jwt_identity()
     new_access_token = create_access_token(identity=user_id)
     response = jsonify({"access_token": new_access_token})
-    response.headers.add("Access-Control-Allow-Origin", "https://todo-frontend-asz1.onrender.com")
+    response.headers.add("Access-Control-Allow-Origin", "https://todo-frontend-7obx.onrender.com")
     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
     response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
 
@@ -198,7 +198,7 @@ def forgot_password():
 
     # Generate Token
     token = serializer.dumps(email, salt='password-reset')
-    reset_link = f"https://todo-frontend-asz1.onrender.com/reset-password/{token}"
+    reset_link = f"https://todo-frontend-7obx.onrender.com/reset-password/{token}"
 
     # Send Email
     try:
@@ -215,13 +215,13 @@ def forgot_password():
 def reset_password(token):
     if request.method == "OPTIONS":
         response = jsonify({"message": "CORS preflight successful"})
-        response.headers.add("Access-Control-Allow-Origin", "https://todo-frontend-asz1.onrender.com")
+        response.headers.add("Access-Control-Allow-Origin", "https://todo-frontend-7obx.onrender.com")
         response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
         response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
         response.headers.add("Access-Control-Allow-Credentials", "true")
         return response, 200
     if request.method == "GET":
-        frontend_url = f"https://todo-frontend-asz1.onrender.com/reset-password/{token}"
+        frontend_url = f"https://todo-frontend-7obx.onrender.com/reset-password/{token}"
         return redirect(frontend_url)
 
     if request.method == "POST":
@@ -267,7 +267,7 @@ def get_tasks():
     conn.close()
         # ✅ Add CORS headers manually
     response = jsonify(tasks)
-    response.headers.add("Access-Control-Allow-Origin", "https://todo-frontend-asz1.onrender.com")  # Allow frontend access
+    response.headers.add("Access-Control-Allow-Origin", "https://todo-frontend-7obx.onrender.com")  # Allow frontend access
     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
     response.headers.add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
     
@@ -281,7 +281,7 @@ def get_tasks():
 def add_task():
     if request.method == "OPTIONS":
         response = jsonify({"message": "CORS preflight request successful"})
-        response.headers.add("Access-Control-Allow-Origin", "https://todo-frontend-asz1.onrender.com")
+        response.headers.add("Access-Control-Allow-Origin", "https://todo-frontend-7obx.onrender.com")
         response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
         response.headers.add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
         return response, 200
@@ -303,7 +303,7 @@ def add_task():
     conn.close()
         # ✅ Add CORS headers manually
     response = jsonify({"id": task_id, "task": new_task, "done": False})
-    response.headers.add("Access-Control-Allow-Origin", "https://todo-frontend-asz1.onrender.com")
+    response.headers.add("Access-Control-Allow-Origin", "https://todo-frontend-7obx.onrender.com")
     response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
     response.headers.add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
     return response
