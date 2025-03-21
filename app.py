@@ -198,7 +198,7 @@ def forgot_password():
 
     # Generate Token
     token = serializer.dumps(email, salt='password-reset')
-    reset_link = f"http://127.0.0.1:10000/reset-password/{token}"
+    reset_link = f"https://todo-frontend-asz1.onrender.com/reset-password/{token}"
 
     # Send Email
     try:
