@@ -221,8 +221,7 @@ def reset_password(token):
         response.headers.add("Access-Control-Allow-Credentials", "true")
         return response, 200
     if request.method == "GET":
-        frontend_url = f"https://todo-frontend-asz1.onrender.com/reset-password/{token}"
-        return redirect(frontend_url)
+        return jsonify({"reset_url": f"https://todo-frontend-asz1.onrender.com/reset-password/{token}"})
     if request.method == "POST":
         try:
             email = serializer.loads(token, salt='password-reset', max_age=600)  # 10-minute expiry
